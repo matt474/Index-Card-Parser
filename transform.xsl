@@ -101,7 +101,7 @@
 							<xsl:value-of select="journal"/>
 						</title>
 					</titleInfo>
-					<xsl:if test="volume | pages">
+					<xsl:if test="volume | pages | date">
 						<part>
 							<xsl:if test="volume">
 								<xsl:choose>
