@@ -112,7 +112,7 @@
 									<xsl:otherwise>
 										<detail type="volume">
 											<number>
-												<xsl:value-of select="volume"/>
+												<xsl:value-of select="normalize-space(volume)"/>
 											</number>
 										</detail>
 									</xsl:otherwise>
