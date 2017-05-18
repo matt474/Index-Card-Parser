@@ -2,12 +2,25 @@
 
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output omit-xml-declaration="no" indent="yes"/>
-	<!-- rebember for later select="replace([###TYPE###, '(^.*)\p{P}$', '$1')"-->
-	<xsl:template match="/references/reference">
+
+	<xsl:template match="/references">
+		<xsl:choose>
+			<xsl:when test="reference[2]">
+				<modsGroup>
+					<xsl:apply-templates/>
+				</modsGroup>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:apply-templates/>
+			</xsl:otherwise>
+		</xsl:choose>
+
+	</xsl:template>
+
+	<xsl:template match="reference">
 		<mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3"
 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-			xmlns:xlink="http://www.w3.org/1999/xlink"
-			xsi:schemaLocation="http://www.loc.gov/standards/mods/mods.xsd">
+			xmlns:xlink="http://www.w3.org/1999/xlink">
 
 			<xsl:if test="/references/reference/header">
 				<topic>
@@ -55,7 +68,7 @@
 					</xsl:otherwise>
 				</xsl:choose>
 			</xsl:if>
-			<xsl:if test="location | publisher">
+			<xsl:if test="location | publisher | date">
 				<originInfo>
 					<xsl:if test="location">
 						<place>
@@ -120,12 +133,24 @@
 							</xsl:if>
 							<xsl:if test="pages">
 								<extent unit="pages">
-									<start>
-										<xsl:value-of select="pages"/>
-									</start>
-									<end>
-										<xsl:value-of select="pages"/>
-									</end>
+									<xsl:choose>
+										<xsl:when test="contains(pages,'-')">
+										<start>
+											<xsl:value-of select="normalize-space(substring-before(pages, '-'))"/>
+										</start>
+										<end>
+											<xsl:value-of select="normalize-space(substring-after(pages, '-'))"/>
+										</end>
+											</xsl:when>
+										<xsl:otherwise>
+											<start>
+												<xsl:value-of select="normalize-space(pages)"/>
+											</start>
+											<end>
+												<xsl:value-of select="normalize-space(pages)"/>
+											</end>
+										</xsl:otherwise>
+									</xsl:choose>
 								</extent>
 							</xsl:if>
 							<xsl:if test="date[preceding-sibling::journal]">
