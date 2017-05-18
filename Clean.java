@@ -42,12 +42,27 @@ public class Clean {
 	{
 		scan = new Scanner(in);
 		
-		body = scan.nextLine();
+		body = cleanLine(scan.nextLine());
+		
+		boolean splitWord = false;
+
 		while(scan.hasNextLine())
 		{
-			current = scan.nextLine();
+			current = cleanLine(scan.nextLine());
 			if(current.length() > 2)
-				body += " "+current;
+			{
+				if(splitWord)
+					body += current;
+				else
+					body += " "+current;
+				splitWord = false;
+				//if the last character is '-', combine with the next line
+				if(current.charAt(current.length() -1) == '-')
+				{
+					body = body.substring(0, body.length()-1);
+					splitWord = true;
+				}
+			}
 		}
 		
 		if(body.length() < 5)
