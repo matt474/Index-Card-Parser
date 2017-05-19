@@ -26,10 +26,11 @@ while count <= loop
 			#a little more cleaning
 			output = output.gsub(/[.,:]<\//,"</")
 			output = output.gsub(/<pages>p{0,2}\./,"<pages>")
-			output = output.gsub("<journal>In ","<journal>")
-			output = output.gsub("<journal>Review in ","<journal>")
-			output = output.gsub("<volume>Vol.","<volume>")
-			output = output.gsub("<volume>No.","<volume>")
+			output = output.gsub("<author>[Bb]y ","<author>")
+			output = output.gsub("<journal>[Ii]n ","<journal>")
+			output = output.gsub("<journal>[Rr]eview in ","<journal>")
+			output = output.gsub("<volume>[Vv]ol.","<volume>")
+			output = output.gsub("<volume>[Nn]o.","<volume>")
 			#Split different references
 			output = output.gsub(/(?<!&amp)(?<!&lt)(?<!&gt)(?<!&apos)(?<!&quot)(;)(<\/[a-zA-Z]*>)/, '\2</reference><reference>')
 			#reformat date, might need more adjustment
