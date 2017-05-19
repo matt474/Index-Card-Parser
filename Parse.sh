@@ -17,6 +17,6 @@ for i in $(seq -f "%03g" 40 80)
 	done
 done
 echo "Converting to MODS format"
-java -jar Saxon/saxon9he.jar "-s:mid2" "-xsl:transform.xsl" "-o:out"
+java -jar Saxon/saxon9he.jar "-s:mid2" "-xsl:Transform.xsl" "-o:out"
 
 
