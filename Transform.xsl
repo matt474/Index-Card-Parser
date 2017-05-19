@@ -27,20 +27,20 @@
 				<xsl:apply-templates select="header"/>
 				<xsl:apply-templates select="footer"/>
 
-				<!-- Origin Info(for journal) -->
+				<!-- Origin Info (for journal) -->
 				<xsl:if test="journal">
-				<xsl:if test="location | publisher | date">
-					<originInfo>
-						<xsl:apply-templates select="location"/>
-						<xsl:apply-templates select="publisher"/>
-						<xsl:if test="date[following-sibling::journal]">
-							<dateIssued>
-								<xsl:value-of select="date[following-sibling::journal]"/>
-							</dateIssued>
-						</xsl:if>
-					</originInfo>
-				</xsl:if>
+					<xsl:if test="location | publisher | date">
+						<originInfo>
+							<xsl:apply-templates select="location"/>
+							<xsl:apply-templates select="publisher"/>
+							<xsl:if test="date[following-sibling::journal]">
+								<dateIssued>
+									<xsl:value-of select="date[following-sibling::journal]"/>
+								</dateIssued>
+							</xsl:if>
+						</originInfo>
 					</xsl:if>
+				</xsl:if>
 				<!-- Related Item -->
 				<xsl:if test="journal | booktitle">
 					<relatedItem type="host">
@@ -49,6 +49,7 @@
 								<xsl:value-of select="journal | booktitle"/>
 							</title>
 						</titleInfo>
+						<!-- Origin Info (For Book) -->
 						<xsl:if test="booktitle">
 							<xsl:if test="location | publisher | date">
 								<originInfo>
@@ -79,7 +80,7 @@
 			</mods>
 		</xsl:if>
 	</xsl:template>
-	
+
 	<xsl:template match="author">
 		<xsl:choose>
 			<xsl:when test="contains(.,',')">
