@@ -13,14 +13,14 @@ while count <= loop
 	if count == 10; zeros = "00"; end
 	if count == 100; zeros = "0"; end
 	if count == 1000; zeros = ""; end
-	fileName = "out/"+set+"-"+zeros+"#{count}"
+	fileName = set+"-"+zeros+"#{count}"
 	begin
-		inFile = File.open(fileName+"-Clean.txt", "r")
+		inFile = File.open("mid1/"+fileName+".txt", "r")
 		contents = inFile.read
 		inFile.close
 
 		begin
-			outFile = File.open(fileName+"-Mid.xml", "w")
+			outFile = File.open("mid2/"+fileName+".xml", "w")
 			output = Anystyle.parse contents, format="xml"
 			
 			#a little more cleaning
@@ -42,7 +42,7 @@ while count <= loop
 		end
 
 	rescue
-		puts "ERROR: File "+set+"-"+zeros+"#{count}-MID.txt not found"
+		puts "ERROR: File "+set+"-"+zeros+"#{count}.txt not found"
 	end
 
 

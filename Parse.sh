@@ -1,5 +1,5 @@
 #!/bin/bash
-for i in $(seq -f "%03g" 40 40)
+for i in $(seq -f "%03g" 40 80)
 	do
 	for j in $(seq -f "%04g" 1 9999)
 	do
@@ -16,4 +16,7 @@ for i in $(seq -f "%03g" 40 40)
 		fi
 	done
 done
+echo "Converting to MODS format"
+java -jar Saxon/saxon9he.jar "-s:mid2" "-xsl:transform.xsl" "-o:out"
+
 

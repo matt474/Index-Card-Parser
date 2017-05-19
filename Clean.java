@@ -72,7 +72,7 @@ public class Clean {
 		}
 		try
 		{
-			fw = new FileWriter("out/"+fileName+"-Clean.txt");
+			fw = new FileWriter("mid1/"+fileName+".txt");
 			bw = new BufferedWriter(fw);
 			//print
 			bw.write(body);

@@ -8,6 +8,6 @@ Saxon XSLT processor. This must be a .jar file in a "Saxon" directory
 
 Input Files. These must be placed in a directory called "in" and must have a name in the format "###-####.txt"
 
-An output directory, called "out"
+Directories called "mid1", "mid2", and "out"
 
 Ruby, with the required gems for the "anystyle-paerser".
