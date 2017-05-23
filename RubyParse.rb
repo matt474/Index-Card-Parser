@@ -29,8 +29,8 @@ while count <= loop
 			output = output.gsub(/<author>[Rr]eview by /,"<author>")
 			output = output.gsub(/<journal>[Ii]n /,"<journal>")
 			output = output.gsub(/<journal>[Rr]eview in /,"<journal>")
-			output = output.gsub(/<volume>[Vv]ol./,"<volume>")
-			output = output.gsub(/<volume>[Nn]o./,"<volume>")
+			output = output.gsub(/<volume>[Vv]ol\./,"<volume>")
+			output = output.gsub(/<volume>[Nn]o\./,"<volume>")
 			#Split different references
 			output = output.gsub(/(?<!&amp)(?<!&lt)(?<!&gt)(?<!&apos)(?<!&quot)(;)(<\/[a-zA-Z]*>)/, '\2</reference><reference>')
 			#reformat date, might need more adjustment
