@@ -17,73 +17,72 @@
 	</xsl:template>
 
 	<xsl:template match="reference">
-		<xsl:if test="author | title | journal | booktitle">
-			<mods xmlns:mods="http://www.loc.gov/mods/v3"
-				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-				xmlns:xlink="http://www.w3.org/1999/xlink">
+		<mods xmlns:mods="http://www.loc.gov/mods/v3"
+			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+			xmlns:xlink="http://www.w3.org/1999/xlink">
 
-				<xsl:apply-templates select="title"/>
-				<xsl:apply-templates select="author"/>
-				<xsl:apply-templates select="header"/>
-				<xsl:apply-templates select="footer"/>
+			<xsl:apply-templates select="title"/>
+			<xsl:apply-templates select="author"/>
+			<xsl:apply-templates select="header"/>
+			<xsl:apply-templates select="footer"/>
 
-				<!-- Origin Info (Not part of Book) -->
-				<xsl:if test="not(booktitle)">
-					<xsl:if test="location | publisher | date">
-						<originInfo>
-							<xsl:apply-templates select="location"/>
-							<xsl:apply-templates select="publisher"/>
-							<xsl:if test="date[following-sibling::journal]">
-								<dateIssued>
-									<xsl:value-of select="date[following-sibling::journal]"/>
-								</dateIssued>
-							</xsl:if>
-							<xsl:if test="date and not(journal)">
-								<dateIssued>
-									<xsl:value-of select="date"/>
-								</dateIssued>
-							</xsl:if>
-						</originInfo>
-					</xsl:if>
-				</xsl:if>
-				<!-- Related Item -->
-				<xsl:if test="journal | booktitle">
-					<relatedItem type="host">
-						<titleInfo>
-							<title>
-								<xsl:value-of select="journal | booktitle"/>
-							</title>
-						</titleInfo>
-						<!-- Origin Info (For Book) -->
-						<xsl:if test="booktitle">
-							<xsl:if test="location | publisher | date">
-								<originInfo>
-									<xsl:apply-templates select="location"/>
-									<xsl:apply-templates select="publisher"/>
-									<xsl:if test="date">
-										<dateIssued>
-											<xsl:value-of select="date"/>
-										</dateIssued>
-									</xsl:if>
-								</originInfo>
-							</xsl:if>
+			<!-- Origin Info (Not part of Book) -->
+			<xsl:if test="not(booktitle)">
+				<xsl:if test="location | publisher | date">
+					<originInfo>
+						<xsl:apply-templates select="location"/>
+						<xsl:apply-templates select="publisher"/>
+						<xsl:if test="date[following-sibling::journal]">
+							<dateIssued>
+								<xsl:value-of select="date[following-sibling::journal]"/>
+							</dateIssued>
 						</xsl:if>
-						<!-- Part -->
-						<xsl:if test="volume | pages | date">
-							<part>
-								<xsl:apply-templates select="volume"/>
-								<xsl:apply-templates select="pages"/>
-								<xsl:if test="date[preceding-sibling::journal]">
-									<date>
-										<xsl:value-of select="date[preceding-sibling::journal]"/>
-									</date>
+						<xsl:if test="date and not(journal)">
+							<dateIssued>
+								<xsl:value-of select="date"/>
+							</dateIssued>
+						</xsl:if>
+					</originInfo>
+				</xsl:if>
+			</xsl:if>
+			<!-- Related Item -->
+			<xsl:if test="journal | booktitle">
+				<relatedItem type="host">
+					<titleInfo>
+						<title>
+							<xsl:value-of select="journal | booktitle"/>
+						</title>
+					</titleInfo>
+					<!-- Origin Info (For Book) -->
+					<xsl:if test="booktitle">
+						<xsl:if test="location | publisher | date">
+							<originInfo>
+								<xsl:apply-templates select="location"/>
+								<xsl:apply-templates select="publisher"/>
+								<xsl:if test="date">
+									<dateIssued>
+										<xsl:value-of select="date"/>
+									</dateIssued>
 								</xsl:if>
-							</part>
+							</originInfo>
 						</xsl:if>
-					</relatedItem>
-				</xsl:if>
-			</mods>
-		</xsl:if>
+					</xsl:if>
+					<!-- Part -->
+					<xsl:if test="volume | pages | date">
+						<part>
+							<xsl:apply-templates select="volume"/>
+							<xsl:apply-templates select="pages"/>
+							<xsl:if test="date[preceding-sibling::journal]">
+								<date>
+									<xsl:value-of select="date[preceding-sibling::journal]"/>
+								</date>
+							</xsl:if>
+						</part>
+					</xsl:if>
+				</relatedItem>
+			</xsl:if>
+		</mods>
+
 	</xsl:template>
 
 	<xsl:template match="author">
