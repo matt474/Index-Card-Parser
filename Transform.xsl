@@ -27,8 +27,8 @@
 				<xsl:apply-templates select="header"/>
 				<xsl:apply-templates select="footer"/>
 
-				<!-- Origin Info (for journal) -->
-				<xsl:if test="journal">
+				<!-- Origin Info (Not part of Book) -->
+				<xsl:if test="not(booktitle)">
 					<xsl:if test="location | publisher | date">
 						<originInfo>
 							<xsl:apply-templates select="location"/>
@@ -36,6 +36,11 @@
 							<xsl:if test="date[following-sibling::journal]">
 								<dateIssued>
 									<xsl:value-of select="date[following-sibling::journal]"/>
+								</dateIssued>
+							</xsl:if>
+							<xsl:if test="date and not(journal)">
+								<dateIssued>
+									<xsl:value-of select="date"/>
 								</dateIssued>
 							</xsl:if>
 						</originInfo>
