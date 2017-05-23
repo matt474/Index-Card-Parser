@@ -20,23 +20,24 @@ while count <= loop
 		inFile.close
 
 		begin
-			outFile = File.open("mid2/"+fileName+".xml", "w")
 			output = Anystyle.parse contents, format="xml"
 			
 			#a little more cleaning
 			output = output.gsub(/[.,:]<\//,"</")
 			output = output.gsub(/<pages>p{0,2}\./,"<pages>")
-			output = output.gsub("<author>[Bb]y ","<author>")
-			output = output.gsub("<journal>[Ii]n ","<journal>")
-			output = output.gsub("<journal>[Rr]eview in ","<journal>")
-			output = output.gsub("<volume>[Vv]ol.","<volume>")
-			output = output.gsub("<volume>[Nn]o.","<volume>")
+			output = output.gsub(/<author>[Bb]y /,"<author>")
+			output = output.gsub(/<author>[Rr]eview by /,"<author>")
+			output = output.gsub(/<journal>[Ii]n /,"<journal>")
+			output = output.gsub(/<journal>[Rr]eview in /,"<journal>")
+			output = output.gsub(/<volume>[Vv]ol./,"<volume>")
+			output = output.gsub(/<volume>[Nn]o./,"<volume>")
 			#Split different references
 			output = output.gsub(/(?<!&amp)(?<!&lt)(?<!&gt)(?<!&apos)(?<!&quot)(;)(<\/[a-zA-Z]*>)/, '\2</reference><reference>')
 			#reformat date, might need more adjustment
 			output = output.gsub(/(<date>)([a-zA-Z]{2,4}.)( ?)([0-9]{4})/, '\1\4 \2')
 			output = output.gsub(/(<date>)([a-zA-Z]{2,4}.)( ?)([0-9]{1,2})(,? ?)([0-9]{4})/, '\1\6 \2 \4')
 
+			outFile = File.open("mid2/"+fileName+".xml", "w")
 			outFile.puts output
 			outFile.close
 		rescue
