@@ -105,7 +105,7 @@
 				</xsl:for-each>
 			</xsl:when>
 			<xsl:otherwise>
-				<name type="buisness">
+				<name type="organization">
 					<namePart>
 						<xsl:value-of select="."/>
 					</namePart>

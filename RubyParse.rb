@@ -21,7 +21,12 @@ while count <= loop
 
 		begin
 			output = Anystyle.parse contents, format="xml"
-			
+
+			#output result before further changes for debugging purposes
+			outFile = File.open("mid2/"+fileName+".xml", "w")
+			outFile.puts output
+			outFile.close
+
 			#a little more cleaning
 			output = output.gsub(/[.,:]<\//,"</")
 			output = output.gsub(/<pages>p{0,2}\./,"<pages>")
@@ -29,6 +34,7 @@ while count <= loop
 			output = output.gsub(/<author>[Rr]eview by /,"<author>")
 			output = output.gsub(/<journal>[Ii]n /,"<journal>")
 			output = output.gsub(/<journal>[Rr]eview in /,"<journal>")
+			output = output.gsub(/<booktitle>[Ii]n /,"<booktitle>")
 			output = output.gsub(/<volume>[Vv]ol\./,"<volume>")
 			output = output.gsub(/<volume>[Nn]o\./,"<volume>")
 			#Split different references
@@ -37,7 +43,7 @@ while count <= loop
 			output = output.gsub(/(<date>)([a-zA-Z]{2,4}.)( ?)([0-9]{4})/, '\1\4 \2')
 			output = output.gsub(/(<date>)([a-zA-Z]{2,4}.)( ?)([0-9]{1,2})(,? ?)([0-9]{4})/, '\1\6 \2 \4')
 
-			outFile = File.open("mid2/"+fileName+".xml", "w")
+			outFile = File.open("mid3/"+fileName+".xml", "w")
 			outFile.puts output
 			outFile.close
 		rescue
