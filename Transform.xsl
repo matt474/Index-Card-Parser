@@ -6,9 +6,11 @@
 	<xsl:template match="/references">
 		<xsl:choose>
 			<xsl:when test="reference[2]">
-				<modsGroup>
+				<modsCollection xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					xmlns:xlink="http://www.w3.org/1999/xlink">
 					<xsl:apply-templates/>
-				</modsGroup>
+				</modsCollection>
 			</xsl:when>
 			<xsl:otherwise>
 				<xsl:apply-templates/>
