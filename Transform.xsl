@@ -17,10 +17,9 @@
 	</xsl:template>
 
 	<xsl:template match="reference">
-		<mods xmlns:mods="http://www.loc.gov/mods/v3"
+		<mods xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3"
 			xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 			xmlns:xlink="http://www.w3.org/1999/xlink">
-
 			<xsl:apply-templates select="title"/>
 			<xsl:apply-templates select="author"/>
 			<xsl:apply-templates select="header"/>
@@ -89,7 +88,7 @@
 		<xsl:choose>
 			<xsl:when test="contains(.,',')">
 				<xsl:for-each select="tokenize(.,'and ')">
-					<name type="personal">
+					<name xmlns="http://www.loc.gov/mods/v3" type="personal">
 						<xsl:if test="contains(.,',')">
 							<namePart type="family">
 								<xsl:value-of select="substring-before(., ',')"/>
@@ -105,7 +104,7 @@
 				</xsl:for-each>
 			</xsl:when>
 			<xsl:otherwise>
-				<name type="organization">
+				<name xmlns="http://www.loc.gov/mods/v3" type="organization">
 					<namePart>
 						<xsl:value-of select="."/>
 					</namePart>
@@ -117,7 +116,7 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="title">
-		<titleInfo>
+		<titleInfo xmlns="http://www.loc.gov/mods/v3">
 			<title>
 				<xsl:value-of select="."/>
 			</title>
@@ -125,15 +124,13 @@
 	</xsl:template>
 	<xsl:template match="header">
 		<xsl:if test="not(starts-with(.,'-'))">
-			<topic>
-				<subject>
-					<xsl:value-of select="."/>
-				</subject>
-			</topic>
+			<note xmlns="http://www.loc.gov/mods/v3">
+				<xsl:value-of select="."/>
+			</note>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="footer">
-		<location>
+		<location xmlns="http://www.loc.gov/mods/v3">
 			<physicalLocation>Robertson Library</physicalLocation>
 			<holdingSimple>
 				<copyInformation>
@@ -145,7 +142,7 @@
 		</location>
 	</xsl:template>
 	<xsl:template match="pages">
-		<extent unit="pages">
+		<extent xmlns="http://www.loc.gov/mods/v3" unit="pages">
 			<xsl:choose>
 				<xsl:when test="contains(.,'-')">
 					<start>
@@ -169,12 +166,12 @@
 	<xsl:template match="volume">
 		<xsl:choose>
 			<xsl:when test="contains(.,'(')">
-				<detail type="volume">
+				<detail xmlns="http://www.loc.gov/mods/v3" type="volume">
 					<number>
 						<xsl:value-of select="substring-before(., '(')"/>
 					</number>
 				</detail>
-				<detail type="issue">
+				<detail xmlns="http://www.loc.gov/mods/v3" type="issue">
 					<number>
 						<xsl:analyze-string select="." regex="\(([^)]+)\)">
 							<xsl:matching-substring>
@@ -185,7 +182,7 @@
 				</detail>
 			</xsl:when>
 			<xsl:otherwise>
-				<detail type="volume">
+				<detail xmlns="http://www.loc.gov/mods/v3" type="volume">
 					<number>
 						<xsl:value-of select="normalize-space(.)"/>
 					</number>
@@ -194,14 +191,14 @@
 		</xsl:choose>
 	</xsl:template>
 	<xsl:template match="location">
-		<place>
+		<place xmlns="http://www.loc.gov/mods/v3">
 			<placeTerm>
 				<xsl:value-of select="."/>
 			</placeTerm>
 		</place>
 	</xsl:template>
 	<xsl:template match="publisher">
-		<publisher>
+		<publisher xmlns="http://www.loc.gov/mods/v3">
 			<xsl:value-of select="."/>
 		</publisher>
 	</xsl:template>
