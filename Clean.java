@@ -34,6 +34,24 @@ public class Clean {
 				Parse(current, set+"-"+zeros+i);
 			} catch (Exception e) {
 				System.err.println("ERROR: file "+set+"-"+zeros+i+".txt can not be read");
+				try
+				{
+					fw = new FileWriter("mid1/"+set+"-"+zeros+i+".txt");
+					bw = new BufferedWriter(fw);
+					//print
+					bw.write("Blank");
+		
+				} catch (IOException ioe) {
+					System.err.println("ERROR: Can not write file "+set+"-"+zeros+i+".txt");
+				} finally {	
+					try {
+						if (bw != null)
+							bw.close();
+						if (fw != null)
+							fw.close();
+					} catch (IOException ex) {
+					}
+				}
 			}
 		}
 	}
@@ -67,8 +85,8 @@ public class Clean {
 		
 		if(body.length() < 5)
 		{
-			System.err.println("REJECTED: file "+fileName+".txt is too short");
-			return;
+			System.err.println("Warning: File "+fileName+" does not contain sufficient data");
+			body = "Blank";
 		}
 		try
 		{
