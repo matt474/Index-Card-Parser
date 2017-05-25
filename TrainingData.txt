@@ -28,3 +28,5 @@
 <header>P.E.I. - FLAGS</header><author>Biddiscombe, Perry</author><title>Le tricolore et l'etoile: the origin of the Acadian National Flag,</title><date>1867- 1912.</date><journal>Acadiensis.</journal><volume>20(1)</volume><date>Autumn 1990,</date><pages>pp. 120- 147.</pages><footer>PEI FC2021 .A24 V.20</footer>
 <header>P.E.I. - CLIMATE</header><title>Snarlottetown sets record low: weathering the weather.</title><journal>Patriot</journal><date>1994 Jan. 17</date><pages> 7</pages><footer>Microfilm</footer>
 <header>PEI - BUSINESS FIRMS - LEARD'S FLOUR MILL.</header><author>Plecash, E. Paul</author><title>A profile of the food processing industry of PEI</title><date>1976</date><footer>PEI TP373 .P44</footer>
+<header>PEI - BUSINESS FIRMS - EASTERN STAMP AND SEAL CO. LTD.</header><footer>Newspaper File</footer>
+<header>P.E.I. - BUSINESS FIRMS - H.A. COMPTON &amp; SON.</header><title>Summerside Journal. Souvenir edition.</title><location>Summerside,</location><date>1916.</date><pages>p.33.</pages><footer>i P.E.I. FC2649 .S85 J682 '</footer>
