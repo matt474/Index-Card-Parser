@@ -6,7 +6,8 @@
 	<xsl:template match="/references">
 		<xsl:choose>
 			<xsl:when test="reference[2]">
-				<modsCollection xmlns="http://www.loc.gov/mods/v3" xmlns:mods="http://www.loc.gov/mods/v3"
+				<modsCollection xmlns="http://www.loc.gov/mods/v3"
+					xmlns:mods="http://www.loc.gov/mods/v3"
 					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 					xmlns:xlink="http://www.w3.org/1999/xlink">
 					<xsl:apply-templates/>
@@ -126,9 +127,11 @@
 	</xsl:template>
 	<xsl:template match="header">
 		<xsl:if test="not(starts-with(.,'-'))">
-			<note xmlns="http://www.loc.gov/mods/v3">
-				<xsl:value-of select="."/>
-			</note>
+			<subject xmlns="http://www.loc.gov/mods/v3">
+				<topic>
+					<xsl:value-of select="."/>
+				</topic>
+			</subject>
 		</xsl:if>
 	</xsl:template>
 	<xsl:template match="footer">
