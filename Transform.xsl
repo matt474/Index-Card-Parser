@@ -33,18 +33,18 @@
 				<xsl:choose>
 					<xsl:when test="date[following-sibling::journal]">
 						<originInfo>
+							<xsl:apply-templates select="location"/>
+							<xsl:apply-templates select="publisher"/>
 							<dateIssued>
-								<xsl:apply-templates select="location"/>
-								<xsl:apply-templates select="publisher"/>
 								<xsl:value-of select="date[following-sibling::journal]"/>
 							</dateIssued>
 						</originInfo>
 					</xsl:when>
 					<xsl:when test="date and not(journal)">
 						<originInfo>
+							<xsl:apply-templates select="location"/>
+							<xsl:apply-templates select="publisher"/>
 							<dateIssued>
-								<xsl:apply-templates select="location"/>
-								<xsl:apply-templates select="publisher"/>
 								<xsl:value-of select="date"/>
 							</dateIssued>
 						</originInfo>
