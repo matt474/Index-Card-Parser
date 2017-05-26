@@ -30,22 +30,30 @@
 
 			<!-- Origin Info (Not part of Book) -->
 			<xsl:if test="not(booktitle)">
-				<xsl:if test="location | publisher | date">
-					<originInfo>
-						<xsl:apply-templates select="location"/>
-						<xsl:apply-templates select="publisher"/>
-						<xsl:if test="date[following-sibling::journal]">
+				<xsl:choose>
+					<xsl:when test="date[following-sibling::journal]">
+						<originInfo>
 							<dateIssued>
+								<xsl:apply-templates select="location"/>
+								<xsl:apply-templates select="publisher"/>
 								<xsl:value-of select="date[following-sibling::journal]"/>
 							</dateIssued>
-						</xsl:if>
-						<xsl:if test="date and not(journal)">
+						</originInfo>
+					</xsl:when>
+					<xsl:when test="date and not(journal)">
+						<originInfo>
 							<dateIssued>
+								<xsl:apply-templates select="location"/>
+								<xsl:apply-templates select="publisher"/>
 								<xsl:value-of select="date"/>
 							</dateIssued>
-						</xsl:if>
-					</originInfo>
-				</xsl:if>
+						</originInfo>
+					</xsl:when>
+					<xsl:when test="location | publisher">
+						<xsl:apply-templates select="location"/>
+						<xsl:apply-templates select="publisher"/>
+					</xsl:when>
+				</xsl:choose>
 			</xsl:if>
 			<!-- Related Item -->
 			<xsl:if test="journal | booktitle">
