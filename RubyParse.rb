@@ -2,8 +2,9 @@
 
 require 'anystyle/parser'
 
-set = ARGV[0]
-loop = ARGV[1].to_i
+loop = ARGV[0].to_i
+prefix = ARGV[1]
+suffix = ARGV[2]
 count = 1
 zeros = "000"
 
@@ -13,7 +14,7 @@ while count <= loop
 	if count == 10; zeros = "00"; end
 	if count == 100; zeros = "0"; end
 	if count == 1000; zeros = ""; end
-	fileName = set+"-"+zeros+"#{count}"
+	fileName = prefix+zeros+"#{count}"+suffix
 	begin
 		inFile = File.open("mid1/"+fileName+".txt", "r")
 		contents = inFile.read

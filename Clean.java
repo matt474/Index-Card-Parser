@@ -8,6 +8,7 @@ import java.io.IOException;
 public class Clean {
 	
 	static String body, current;
+	static String prefix, suffix;
 	
 	static int ptr;
 
@@ -18,8 +19,15 @@ public class Clean {
 	
 	public static void main(String[] args)
 	{
-		String set = args[0];
-		int scanNum = Integer.parseInt(args[1]);
+		int scanNum = Integer.parseInt(args[0]);
+		
+		prefix = "";
+		suffix = "";
+		if(args.length >= 1)
+			prefix = args[1];
+		if(args.length >= 2)
+			suffix = args[2];
+			
 		String zeros = "000";
 		for(int i=1; i<=scanNum; i++)
 		{
@@ -30,19 +38,19 @@ public class Clean {
 			if(i==1000)
 				zeros = "";
 			try{
-				current = new Scanner(new File("in/"+set+"-"+zeros+i+".txt")).useDelimiter("\\Z").next();
-				Parse(current, set+"-"+zeros+i);
+				current = new Scanner(new File("in/"+prefix+zeros+i+suffix+".txt")).useDelimiter("\\Z").next();
+				Parse(current, zeros+i);
 			} catch (Exception e) {
-				System.err.println("ERROR: file "+set+"-"+zeros+i+".txt can not be read");
+				System.err.println("ERROR: file "+prefix+zeros+i+suffix+".txt can not be read");
 				try
 				{
-					fw = new FileWriter("mid1/"+set+"-"+zeros+i+".txt");
+					fw = new FileWriter("mid1/"+prefix+zeros+i+suffix+".txt");
 					bw = new BufferedWriter(fw);
 					//print
 					bw.write("Blank");
 		
 				} catch (IOException ioe) {
-					System.err.println("ERROR: Can not write file "+set+"-"+zeros+i+".txt");
+					System.err.println("ERROR: Can not write file "+prefix+zeros+i+suffix+".txt");
 				} finally {	
 					try {
 						if (bw != null)
@@ -56,7 +64,7 @@ public class Clean {
 		}
 	}
 
-	public static void Parse(String in, String fileName)
+	public static void Parse(String in, String num)
 	{
 		scan = new Scanner(in);
 		
@@ -85,18 +93,18 @@ public class Clean {
 		
 		if(body.length() < 5)
 		{
-			System.err.println("Warning: File "+fileName+" does not contain sufficient data");
+			System.err.println("Warning: File "+prefix+num+suffix+" does not contain sufficient data");
 			body = "Blank";
 		}
 		try
 		{
-			fw = new FileWriter("mid1/"+fileName+".txt");
+			fw = new FileWriter("mid1/"+prefix+num+suffix+".txt");
 			bw = new BufferedWriter(fw);
 			//print
 			bw.write(body);
 		
 		} catch (IOException e) {
-			System.err.println("ERROR: Can not write file "+fileName+".txt");
+			System.err.println("ERROR: Can not write file "+prefix+num+suffix+".txt");
 		} finally {	
 			try {
 				if (bw != null)
