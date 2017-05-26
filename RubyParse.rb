@@ -42,6 +42,9 @@ while count <= loop
 			#reformat date, might need more adjustment
 			output = output.gsub(/(<date>)([a-zA-Z]{2,4}.)( ?)([0-9]{4})/, '\1\4 \2')
 			output = output.gsub(/(<date>)([a-zA-Z]{2,4}.)( ?)([0-9]{1,2})(,? ?)([0-9]{4})/, '\1\6 \2 \4')
+			#Remove empty fields
+			output = output.gsub(/<[a-zA-Z]*> *<\/[a-zA-Z]*>/, '')
+			output = output.gsub(/<[a-zA-Z]*>-<\/[a-zA-Z]*>/, '')
 
 			outFile = File.open("mid3/"+fileName+".xml", "w")
 			outFile.puts output
