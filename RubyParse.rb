@@ -31,6 +31,10 @@ while count <= loop
       #FIX for incorectly formatted pages
       output = output.gsub(/([Pp][Pp]?\.)(<\/pages>)(<[a-zA-Z]*>)([0-9-]*[ .,:;])/, '\4\2\3')
       output = output.gsub(/(<\/date>)(<[a-zA-Z]*>)([0-9]*, ?[0-9]*[ .,:;])/, ' \3\1\2')
+      
+      #FIX for microfilm
+      output = output.gsub(/<footer>[Mm]i.{0,12}<\/footer>/, "<footer>Microfilm</footer>")
+      output = output.gsub(/<footer>.{0,12}lm<\/footer>/, "<footer>Microfilm</footer>")
 
 			#a little more cleaning
 			output = output.gsub(/[.,:]<\//,"</")
