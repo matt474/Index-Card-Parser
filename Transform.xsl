@@ -28,6 +28,11 @@
 			<xsl:apply-templates select="header"/>
 			<xsl:apply-templates select="footer"/>
 
+			<language>
+				<languageTerm>eng</languageTerm>
+			</language>
+			<typeOfResource>text</typeOfResource>
+
 			<!-- Origin Info (Not part of Book) -->
 			<xsl:if test="not(booktitle)">
 				<xsl:choose>
@@ -115,7 +120,7 @@
 				</xsl:for-each>
 			</xsl:when>
 			<xsl:otherwise>
-				<name xmlns="http://www.loc.gov/mods/v3" type="organization">
+				<name xmlns="http://www.loc.gov/mods/v3" type="corporate">
 					<namePart>
 						<xsl:value-of select="."/>
 					</namePart>
