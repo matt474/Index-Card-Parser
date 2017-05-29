@@ -28,6 +28,10 @@ while count <= loop
 			outFile.puts output
 			outFile.close
 
+      #FIX for incorectly formatted pages
+      output = output.gsub(/([Pp][Pp]?\.)(<\/pages>)(<[a-zA-Z]*>)([0-9-]*[ .,:;])/, '\4\2\3')
+      output = output.gsub(/(<\/date>)(<[a-zA-Z]*>)([0-9]*, ?[0-9]*[ .,:;])/, ' \3\1\2')
+
 			#a little more cleaning
 			output = output.gsub(/[.,:]<\//,"</")
 			output = output.gsub(/<pages>p{0,2}\./,"<pages>")
