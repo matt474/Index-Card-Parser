@@ -2,6 +2,14 @@
 prefix="indexcards_"
 suffix="_OCR"
 copyImage="false"
+cleanDir="true"
+
+if [ $cleanDir = "true" ]; then
+  rm mid1/*
+  rm mid2/*
+  rm mid3/*
+  rm out/*
+fi
 
 for i in $(seq -f "%03g" 1 100)
 	do
