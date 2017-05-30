@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<months>
+    <month name="january">01</month>
+    <month name="jan.">01</month>
+    <month name="febuary">02</month>
+    <month name="feb.">02</month>
+    <month name="march">03</month>
+    <month name="mar.">03</month>
+    <month name="april">04</month>
+    <month name="apr.">04</month>
+    <month name="may">05</month>
+    <month name="june">06</month>
+    <month name="jun.">06</month>
+    <month name="juny">07</month>
+    <month name="jul.">07</month>
+    <month name="august">08</month>
+    <month name="aug.">08</month>
+    <month name="september">09</month>
+    <month name="sep.">09</month>
+    <month name="sept.">09</month>
+    <month name="october">10</month>
+    <month name="oct.">10</month>
+    <month name="november">11</month>
+    <month name="nov.">11</month>
+    <month name="december">12</month>
+    <month name="dec.">12</month>
+</months>
