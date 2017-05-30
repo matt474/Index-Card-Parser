@@ -3,6 +3,10 @@
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output omit-xml-declaration="no" indent="yes"/>
 
+	<!-- Will try a new date template later
+	<xsl:include href="Library/xslt-date-template.xslt"/>
+	-->
+
 	<xsl:template match="/references">
 		<xsl:choose>
 			<xsl:when test="reference[2]">
@@ -35,30 +39,19 @@
 
 			<!-- Origin Info (Not part of Book) -->
 			<xsl:if test="not(booktitle)">
-				<xsl:choose>
-					<xsl:when test="date[following-sibling::journal]">
-						<originInfo>
-							<xsl:apply-templates select="location"/>
-							<xsl:apply-templates select="publisher"/>
-							<dateIssued>
-								<xsl:value-of select="date[following-sibling::journal]"/>
-							</dateIssued>
-						</originInfo>
-					</xsl:when>
-					<xsl:when test="date and not(journal)">
-						<originInfo>
-							<xsl:apply-templates select="location"/>
-							<xsl:apply-templates select="publisher"/>
-							<dateIssued>
-								<xsl:value-of select="date"/>
-							</dateIssued>
-						</originInfo>
-					</xsl:when>
-					<xsl:when test="location | publisher">
+				<xsl:if test="date | location | publisher">
+					<originInfo>
 						<xsl:apply-templates select="location"/>
 						<xsl:apply-templates select="publisher"/>
-					</xsl:when>
-				</xsl:choose>
+						<xsl:if test="date">
+							<dateIssued encoding="w3cdtf" keyDate="yes">
+								<xsl:call-template name="format-date">
+									<xsl:with-param name="date" select="date[1]"/>
+								</xsl:call-template>
+							</dateIssued>
+						</xsl:if>
+					</originInfo>
+				</xsl:if>
 			</xsl:if>
 			<!-- Related Item -->
 			<xsl:if test="journal | booktitle">
@@ -75,8 +68,10 @@
 								<xsl:apply-templates select="location"/>
 								<xsl:apply-templates select="publisher"/>
 								<xsl:if test="date">
-									<dateIssued>
-										<xsl:value-of select="date"/>
+									<dateIssued encoding="w3cdtf" keyDate="yes">
+										<xsl:call-template name="format-date">
+											<xsl:with-param name="date" select="date[1]"/>
+										</xsl:call-template>
 									</dateIssued>
 								</xsl:if>
 							</originInfo>
@@ -219,5 +214,21 @@
 		<publisher xmlns="http://www.loc.gov/mods/v3">
 			<xsl:value-of select="."/>
 		</publisher>
+	</xsl:template>
+	<xsl:template name="format-date">
+		<xsl:param name="date"/>
+		<xsl:variable name="tokenDate" select="tokenize(normalize-space($date),' ')"/>
+		<!--
+		<xsl:variable name="numDate" select="replace(date,'[Ss]ept?\.','09')"/>
+		-->
+		<xsl:variable name="month"
+			select="document('Month.xml')/months/month[@name=lower-case($tokenDate[2])]"/>
+		<xsl:value-of select="$tokenDate[1]"/>
+		<xsl:if test="$month">
+			<xsl:value-of select="concat('-',$month)"/>
+		</xsl:if>
+		<xsl:if test="$tokenDate[3]">
+			<xsl:value-of select="concat('-',format-number(number($tokenDate[3]),'00'))"/>
+		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>
