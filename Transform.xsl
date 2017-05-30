@@ -39,11 +39,11 @@
 
 			<!-- Origin Info (Not part of Book) -->
 			<xsl:if test="not(booktitle)">
-				<xsl:if test="date | location | publisher">
+				<xsl:if test="date and matches(date[1], '^[0-9]{4,4} ') or location | publisher">
 					<originInfo>
 						<xsl:apply-templates select="location"/>
 						<xsl:apply-templates select="publisher"/>
-						<xsl:if test="date">
+						<xsl:if test="date and matches(date[1], '^[0-9]{4,4} ')">
 							<dateIssued encoding="w3cdtf" keyDate="yes">
 								<xsl:call-template name="format-date">
 									<xsl:with-param name="date" select="date[1]"/>
@@ -63,11 +63,11 @@
 					</titleInfo>
 					<!-- Origin Info (For Book) -->
 					<xsl:if test="booktitle">
-						<xsl:if test="location | publisher | date">
+						<xsl:if test="date and matches(date[1], '^[0-9]{4,4} ') or location | publisher ">
 							<originInfo>
 								<xsl:apply-templates select="location"/>
 								<xsl:apply-templates select="publisher"/>
-								<xsl:if test="date">
+								<xsl:if test="date and matches(date[1], '^[0-9]{4,4} ')">
 									<dateIssued encoding="w3cdtf" keyDate="yes">
 										<xsl:call-template name="format-date">
 											<xsl:with-param name="date" select="date[1]"/>
@@ -78,7 +78,7 @@
 						</xsl:if>
 					</xsl:if>
 					<!-- Part -->
-					<xsl:if test="volume | pages | date">
+					<xsl:if test="volume | pages | date[preceding-sibling::journal]">
 						<part>
 							<xsl:apply-templates select="volume"/>
 							<xsl:apply-templates select="pages"/>
