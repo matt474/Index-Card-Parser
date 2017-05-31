@@ -227,9 +227,9 @@
 		<xsl:value-of select="$tokenDate[1]"/>
 		<xsl:if test="$month">
 			<xsl:value-of select="concat('-',$month)"/>
-		</xsl:if>
-		<xsl:if test="$tokenDate[3]">
-			<xsl:value-of select="concat('-',format-number(number($tokenDate[3]),'00'))"/>
+			<xsl:if test="$tokenDate[3]">
+				<xsl:value-of select="concat('-',format-number(number($tokenDate[3]),'00'))"/>
+			</xsl:if>
 		</xsl:if>
 	</xsl:template>
 </xsl:stylesheet>
