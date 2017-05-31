@@ -36,8 +36,7 @@ while count <= loop
       output = output.gsub(/<footer>[Mm]i.{0,12}<\/footer>/, "<footer>Microfilm</footer>")
       output = output.gsub(/<footer>.{0,12}lm<\/footer>/, "<footer>Microfilm</footer>")
 
-			#a little more cleaning
-			output = output.gsub(/[.,:]<\//,"</")
+			#Remove extra words in fields
 			output = output.gsub(/<pages>p{0,2}\./,"<pages>")
 			output = output.gsub(/<author>[Bb]y /,"<author>")
 			output = output.gsub(/<author>[Rr]eview by /,"<author>")
@@ -46,7 +45,7 @@ while count <= loop
 			output = output.gsub(/<booktitle>[Ii]n /,"<booktitle>")
 			output = output.gsub(/<volume>[Vv]ol\./,"<volume>")
 			output = output.gsub(/<volume>[Nn]o\./,"<volume>")
-			#Split different references
+			#Split different references ( look for a field that ends with a semicolon that is not part of a character, such as &lt; for < )
 			output = output.gsub(/(?<!&amp)(?<!&lt)(?<!&gt)(?<!&apos)(?<!&quot)(;)(<\/[a-zA-Z]*>)/, '\2</reference><reference>')
 			#reformat date, might need more adjustment
 			output = output.gsub(/(<date>)([a-zA-Z]{2,4}.)( ?)([0-9]{4})/, '\1\4 \2')
@@ -54,6 +53,9 @@ while count <= loop
 			#Remove empty fields
 			output = output.gsub(/<[a-zA-Z]*> *<\/[a-zA-Z]*>/, '')
 			output = output.gsub(/<[a-zA-Z]*>-<\/[a-zA-Z]*>/, '')
+
+      #a little more cleaning
+			output = output.gsub(/[.,:]<\//,"</")
 
 			outFile = File.open("mid3/"+fileName+".xml", "w")
 			outFile.puts output
