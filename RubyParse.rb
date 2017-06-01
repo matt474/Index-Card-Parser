@@ -3,8 +3,14 @@
 require 'anystyle/parser'
 
 loop = ARGV[0].to_i
-prefix = ARGV[1]
-suffix = ARGV[2]
+prefix = ""
+suffix = ""
+if ARGV.length > 0 and ARGV[1] != nil
+  prefix = ARGV[1]
+end
+if ARGV.length > 1 and ARGV[2] != nil
+  suffix = ARGV[2]
+end
 count = 1
 zeros = "000"
 
@@ -61,11 +67,11 @@ while count <= loop
 			outFile.puts output
 			outFile.close
 		rescue
-			puts "ERROR: File "+set+"-"+zeros+"#{count}.xml could not be created"
+			puts "ERROR: File "+prefix+zeros+"#{count}"+suffix+".xml could not be created"
 		end
 
 	rescue
-		puts "ERROR: File "+set+"-"+zeros+"#{count}.txt not found"
+		puts "ERROR: File "+prefix+zeros+"#{count}"+suffix+".txt not found"
 	end
 
 

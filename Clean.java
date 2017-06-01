@@ -23,9 +23,9 @@ public class Clean {
 		
 		prefix = "";
 		suffix = "";
-		if(args.length >= 1)
+		if(args.length > 1)
 			prefix = args[1];
-		if(args.length >= 2)
+		if(args.length > 2)
 			suffix = args[2];
 			
 		String zeros = "000";
