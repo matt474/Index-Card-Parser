@@ -39,6 +39,7 @@ while count <= loop
       output = output.gsub(/(<\/date>)(<[a-zA-Z]*>)([0-9]*, ?[0-9]*[ .,:;])/, '\3\1\2')
       
       #FIX for microfilm
+      output = output.gsub("microfilm", "Microfilm")
       output = output.gsub(/<footer>[Mm]i.{0,12}<\/footer>/, "<footer>Microfilm</footer>")
       output = output.gsub(/<footer>.{0,12}lm<\/footer>/, "<footer>Microfilm</footer>")
 
