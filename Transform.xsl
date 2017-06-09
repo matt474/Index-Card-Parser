@@ -28,90 +28,89 @@
 			<xsl:apply-templates select="header"/>
 			<xsl:apply-templates select="footer"/>
 
-				<language>
-					<languageTerm>eng</languageTerm>
-				</language>
-				<typeOfResource>text</typeOfResource>
+			<language>
+				<languageTerm>eng</languageTerm>
+			</language>
+			<typeOfResource>text</typeOfResource>
 
-				<!-- Use a bunch of if cases to determine Genre-->
-				<xsl:choose>
-					<xsl:when test="contains(footer, 'Microfilm')">
-						<genre>article</genre>
-					</xsl:when>
-					<xsl:when test="journal">
-						<genre>article</genre>
-					</xsl:when>
-					<xsl:when test="booktitle">
-						<xsl:choose>
-							<xsl:when test="page">
-								<genre>book chapter</genre>
-							</xsl:when>
-							<xsl:otherwise>
-								<genre>book</genre>
-							</xsl:otherwise>
-						</xsl:choose>
-					</xsl:when>
-					<xsl:otherwise>
-						<genre>other</genre>
-					</xsl:otherwise>
-				</xsl:choose>
+			<!-- Use a bunch of if cases to determine Genre-->
+			<xsl:choose>
+				<xsl:when test="contains(footer, 'Microfilm')">
+					<genre>article</genre>
+				</xsl:when>
+				<xsl:when test="journal">
+					<genre>article</genre>
+				</xsl:when>
+				<xsl:when test="booktitle">
+					<xsl:choose>
+						<xsl:when test="page">
+							<genre>book chapter</genre>
+						</xsl:when>
+						<xsl:otherwise>
+							<genre>book</genre>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>
+					<genre>other</genre>
+				</xsl:otherwise>
+			</xsl:choose>
 
-				<!-- Origin Info (Not part of Book) -->
-				<xsl:if test="not(booktitle)">
-					<xsl:if
-						test="date and matches(date[1], '^[0-9]{4,4}( |$)') or location | publisher">
-						<originInfo>
-							<xsl:apply-templates select="location"/>
-							<xsl:apply-templates select="publisher"/>
-							<xsl:if test="date and matches(date[1], '^[0-9]{4,4}( |$)')">
-								<dateIssued encoding="w3cdtf" keyDate="yes">
-									<xsl:call-template name="format-date">
-										<xsl:with-param name="date" select="date[1]"/>
-									</xsl:call-template>
-								</dateIssued>
-							</xsl:if>
-						</originInfo>
-					</xsl:if>
-				</xsl:if>
-				<!-- Related Item -->
-				<xsl:if test="journal | booktitle">
-					<relatedItem type="host">
-						<titleInfo>
-							<title>
-								<xsl:value-of select="journal | booktitle"/>
-							</title>
-						</titleInfo>
-						<!-- Origin Info (For Book) -->
-						<xsl:if test="booktitle">
-							<xsl:if
-								test="date and matches(date[1], '^[0-9]{4,4}( |$)') or location | publisher ">
-								<originInfo>
-									<xsl:apply-templates select="location"/>
-									<xsl:apply-templates select="publisher"/>
-									<xsl:if test="date and matches(date[1], '^[0-9]{4,4}( |$)')">
-										<dateIssued encoding="w3cdtf" keyDate="yes">
-											<xsl:call-template name="format-date">
-												<xsl:with-param name="date" select="date[1]"/>
-											</xsl:call-template>
-										</dateIssued>
-									</xsl:if>
-								</originInfo>
-							</xsl:if>
+			<!-- Origin Info (Not part of Book) -->
+			<xsl:if test="not(booktitle)">
+				<xsl:if test="date and matches(date[1], '^[0-9]{4,4}( |$)') or location | publisher">
+					<originInfo>
+						<xsl:apply-templates select="location"/>
+						<xsl:apply-templates select="publisher"/>
+						<xsl:if test="date and matches(date[1], '^[0-9]{4,4}( |$)')">
+							<dateIssued encoding="w3cdtf" keyDate="yes">
+								<xsl:call-template name="format-date">
+									<xsl:with-param name="date" select="date[1]"/>
+								</xsl:call-template>
+							</dateIssued>
 						</xsl:if>
-						<!-- Part -->
-						<xsl:if test="volume | pages | date[preceding-sibling::journal]">
-							<part>
-								<xsl:apply-templates select="volume"/>
-								<xsl:apply-templates select="pages"/>
-								<xsl:if test="date[preceding-sibling::journal]">
-									<date>
-										<xsl:value-of select="date[preceding-sibling::journal]"/>
-									</date>
+					</originInfo>
+				</xsl:if>
+			</xsl:if>
+			<!-- Related Item -->
+			<xsl:if test="journal | booktitle">
+				<relatedItem type="host">
+					<titleInfo>
+						<title>
+							<xsl:value-of select="journal | booktitle"/>
+						</title>
+					</titleInfo>
+					<!-- Origin Info (For Book) -->
+					<xsl:if test="booktitle">
+						<xsl:if
+							test="date and matches(date[1], '^[0-9]{4,4}( |$)') or location | publisher ">
+							<originInfo>
+								<xsl:apply-templates select="location"/>
+								<xsl:apply-templates select="publisher"/>
+								<xsl:if test="date and matches(date[1], '^[0-9]{4,4}( |$)')">
+									<dateIssued encoding="w3cdtf" keyDate="yes">
+										<xsl:call-template name="format-date">
+											<xsl:with-param name="date" select="date[1]"/>
+										</xsl:call-template>
+									</dateIssued>
 								</xsl:if>
-							</part>
+							</originInfo>
 						</xsl:if>
-					</relatedItem>
-				</xsl:if>
+					</xsl:if>
+					<!-- Part -->
+					<xsl:if test="volume | pages | date[preceding-sibling::journal]">
+						<part>
+							<xsl:apply-templates select="volume"/>
+							<xsl:apply-templates select="pages"/>
+							<xsl:if test="date[preceding-sibling::journal]">
+								<date>
+									<xsl:value-of select="date[preceding-sibling::journal]"/>
+								</date>
+							</xsl:if>
+						</part>
+					</xsl:if>
+				</relatedItem>
+			</xsl:if>
 		</mods>
 	</xsl:template>
 
