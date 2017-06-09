@@ -2,11 +2,7 @@
 
 <xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 	<xsl:output omit-xml-declaration="no" indent="yes"/>
-
-	<!-- Will try a new date template later
-	<xsl:include href="Library/xslt-date-template.xslt"/>
-	-->
-
+	
 	<xsl:template match="/references">
 		<xsl:choose>
 			<xsl:when test="reference[2]">
@@ -113,7 +109,6 @@
 				</relatedItem>
 			</xsl:if>
 		</mods>
-
 	</xsl:template>
 
 	<xsl:template match="author">
@@ -147,6 +142,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	
 	<xsl:template match="title">
 		<titleInfo xmlns="http://www.loc.gov/mods/v3">
 			<title>
@@ -154,6 +150,7 @@
 			</title>
 		</titleInfo>
 	</xsl:template>
+	
 	<xsl:template match="header">
 		<xsl:if test="not(starts-with(.,'-'))">
 			<subject xmlns="http://www.loc.gov/mods/v3">
@@ -163,6 +160,7 @@
 			</subject>
 		</xsl:if>
 	</xsl:template>
+	
 	<xsl:template match="footer">
 		<location xmlns="http://www.loc.gov/mods/v3">
 			<physicalLocation>Robertson Library</physicalLocation>
@@ -175,6 +173,7 @@
 			</holdingSimple>
 		</location>
 	</xsl:template>
+	
 	<xsl:template match="pages">
 		<extent xmlns="http://www.loc.gov/mods/v3" unit="pages">
 			<xsl:choose>
@@ -197,6 +196,7 @@
 			</xsl:choose>
 		</extent>
 	</xsl:template>
+	
 	<xsl:template match="volume">
 		<xsl:choose>
 			<xsl:when test="contains(.,'(')">
@@ -224,6 +224,7 @@
 			</xsl:otherwise>
 		</xsl:choose>
 	</xsl:template>
+	
 	<xsl:template match="location">
 		<place xmlns="http://www.loc.gov/mods/v3">
 			<placeTerm>
@@ -236,12 +237,10 @@
 			<xsl:value-of select="."/>
 		</publisher>
 	</xsl:template>
+	
 	<xsl:template name="format-date">
 		<xsl:param name="date"/>
 		<xsl:variable name="tokenDate" select="tokenize(normalize-space($date),' ')"/>
-		<!--
-		<xsl:variable name="numDate" select="replace(date,'[Ss]ept?\.','09')"/>
-		-->
 		<xsl:variable name="month"
 			select="document('Month.xml')/months/month[@name=lower-case($tokenDate[2])]"/>
 		<xsl:value-of select="$tokenDate[1]"/>
