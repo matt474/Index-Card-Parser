@@ -37,6 +37,26 @@
 			</language>
 			<typeOfResource>text</typeOfResource>
 
+			<!-- Use a bunch of if cases to determine Genre-->
+			<xsl:choose>
+				<xsl:when test="journal">
+					<genre>article</genre>
+				</xsl:when>
+				<xsl:when test="booktitle">
+					<xsl:choose>
+						<xsl:when test="page">
+							<genre>book chapter</genre>
+						</xsl:when>
+						<xsl:otherwise>
+							<genre>book</genre>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>
+					<genre>other</genre>
+				</xsl:otherwise>
+			</xsl:choose>
+
 			<!-- Origin Info (Not part of Book) -->
 			<xsl:if test="not(booktitle)">
 				<xsl:if test="date and matches(date[1], '^[0-9]{4,4}( |$)') or location | publisher">
