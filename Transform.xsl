@@ -36,15 +36,15 @@
 			<!-- Use a bunch of if cases to determine Genre-->
 			<xsl:choose>
 				<xsl:when test="contains(footer[last()], 'Microfilm')">
-					<genre>article</genre>
+					<genre>newspaper article</genre>
 				</xsl:when>
 				<xsl:when test="journal">
 					<genre>article</genre>
 				</xsl:when>
 				<xsl:when test="booktitle">
 					<xsl:choose>
-						<xsl:when test="page">
-							<genre>book chapter</genre>
+						<xsl:when test="pages">
+							<genre>book section</genre>
 						</xsl:when>
 						<xsl:otherwise>
 							<genre>book</genre>
