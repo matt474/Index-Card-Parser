@@ -51,6 +51,9 @@
 						</xsl:otherwise>
 					</xsl:choose>
 				</xsl:when>
+				<xsl:when test="contains(footer[last()], 'VERTICAL FILE')">
+					<genre>pamphlet</genre>
+				</xsl:when>
 				<xsl:otherwise>
 					<genre>other</genre>
 				</xsl:otherwise>
